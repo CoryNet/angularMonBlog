@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<ul class="nav navbar-nav">
+			<li routerLinkActive="active" *ngIf="authStatus" >
+				<a routerLink="posts">Posts</a>
+			</li>
+			<li routerLinkActive="active" *ngIf="authStatus" >
+				<a routerLink="new">Nouveau Post</a>
+			</li>
+			<li routerLinkActive="active" *ngIf="authStatus" >
+				<a routerLink="users">Utilisateurs</a>
+			</li>
+			<li routerLinkActive="active" *ngIf="authStatus" >
+				<a routerLink="new-user">Nouvel utilisateur</a>
+			</li>
+			<li routerLinkActive="active">
+				<a routerLink="">Test route vide ""</a>
+			</li>
+
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li routLinkActive="active" *ngIf="!authStatus" >
+				<a (click)="onSignIn()" style="cursor:pointer">Connexion</a>
+			</li>
+			<li routLinkActive="active" *ngIf="authStatus">
+				<a (click)="onSignOut()"  style="cursor:pointer">Déconnexion</a>
+			</li>
+		</ul>
+	</div>
+</nav>

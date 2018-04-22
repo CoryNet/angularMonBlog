@@ -1,36 +1,31 @@
-import { Component,Input,  OnInit } from '@angular/core';
-import{Post} from '../post'
+import { Component,  OnInit ,OnDestroy} from '@angular/core';
+import {PostService} from '../services/post.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
-	
-  @Input() postListItem : Post;
-  
-
-
-  constructor() { 
+export class PostListComponent implements OnInit,OnDestroy {
+ 	postListItems : any[];
+  postListItemsSubscription : Subscription;
+  constructor(private postService : PostService) { 
   	
   }
 
   ngOnInit() {
+  	this.postListItemsSubscription = this.postService.postListItemsSubject.subscribe(
+        (postListItems:any[]) => {
+          this.postListItems = postListItems;
+        }
+     );
+    this.postService.emitPostListItemsSubject();
   }
-  getColor() {
-    if(this.postListItem.loveIts > 0) {
-      return 'green';
-    } else if(this.postListItem.loveIts < 0) {
-      return 'red';
-    }
-   }
-   onReduire(){
-   	this.postListItem.loveIts -=1;
-   }
-   onAjoutter(){
-      	this.postListItem.loveIts +=1;
-   }
+  ngOnDestroy() {
+   this.postListItemsSubscription.unsubscribe();
+  }
+
    
 }
 
