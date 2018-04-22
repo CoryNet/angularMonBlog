@@ -34,8 +34,7 @@ const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'users', canActivate:[AuthGuard],  component: UserListComponent },
   { path: 'new-user', canActivate:[AuthGuard], component: NewUserComponent },
- 
-  { path: '',redirectTo: 'posts', pathMatch 'full' },
+  { path: '',redirectTo: 'posts', pathMatch :'full' },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: 'not-found' }
 ];
